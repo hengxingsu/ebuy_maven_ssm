@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 public class AdminDaoTest extends SpringJunitTest {
@@ -59,6 +60,17 @@ public class AdminDaoTest extends SpringJunitTest {
     public  void  testDeleteAdmin(){
         System.out.println(adminDao.deleteAdmin(2));
         System.out.println(adminDao.deleteAdmin(0));
+    }
+
+
+    @Test
+    public  void  testSaveAdmin(){
+        Admin admin=new Admin();
+        admin.setUsername("333");
+        admin.setPassword("123");
+        admin.setName("呆呆");
+        admin.setCreateTime(new Date());
+        System.out.println(adminDao.saveAdmin(admin));
     }
 
 }

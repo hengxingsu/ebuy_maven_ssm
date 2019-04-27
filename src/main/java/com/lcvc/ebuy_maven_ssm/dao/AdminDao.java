@@ -54,4 +54,10 @@ public interface AdminDao {
 
   int   deleteAdmin(Integer id);
 
+    /**
+     * 保存指定账户进数据库
+     * @param admin
+     * @return   添加了多少条记录
+     */
+   int saveAdmin(Admin admin);
 }
