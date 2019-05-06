@@ -57,7 +57,7 @@ public class AdminController {
 		}else  if (adminService.existsAdmin(username,admin.getId())){
 			request.setAttribute("myMessage","账户名重名");
 		}else {
-			if (adminService.updateAdmin(username, name, admin.getId())) {
+			if (adminService.updateAdmin(admin)) {
 				admin.setUsername(username);
 				admin.setName(name);
 				request.setAttribute("myMessage", "基本信息修改成功");

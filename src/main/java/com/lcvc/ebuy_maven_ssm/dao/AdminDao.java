@@ -24,14 +24,12 @@ public interface AdminDao {
 
     /**
      *
-     * @param username 账户名
-     * @param name      姓名
-     * @param id         主键
+     * @param
+     * @param admin
+     * @param
      * @return 更改了多少条记录
      */
-
-    int updateAdmin(@Param(value = "username")String username,@Param(value = "name")String name,@Param(value = "id")Integer id);
-
+    int updateAdmin(Admin admin);
     /**
      * 查找在数据中和指定用户名重名的个数
      * @param username
@@ -39,6 +37,8 @@ public interface AdminDao {
      * @return
      */
     int existsAdmin(@Param(value = "username")String username,@Param(value = "id")Integer id);
+
+    int existsUsername(@Param(value = "username")String username);
 
     /**
      * 返回所有的管理账户集合
@@ -60,4 +60,11 @@ public interface AdminDao {
      * @return   添加了多少条记录
      */
    int saveAdmin(Admin admin);
+
+    /**
+     * 根据标识符获取对应的管理账户对象
+     * @param id
+     * @return  null表示没有找到
+     */
+   Admin getAdmin(int id);
 }

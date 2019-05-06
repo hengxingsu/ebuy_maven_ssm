@@ -17,7 +17,6 @@ public class AdminDaoTest extends SpringJunitTest {
 
     @Resource
     private AdminDao adminDao;
-
     @Test
     public void print(){
         System.out.println("hello");
@@ -40,7 +39,8 @@ public class AdminDaoTest extends SpringJunitTest {
     @Test
     public void  testUpdateAdmin(){
        // System.out.println(adminDao.updateAdmin("hahha","haha",23));
-        System.out.println(adminDao.updateAdmin("hahha","haha",12));
+      //  System.out.println(adminDao.updateAdmin("hahha","haha",12));
+
     }
     @Test
     public void  testExistsAdmin(){
@@ -71,6 +71,12 @@ public class AdminDaoTest extends SpringJunitTest {
         admin.setName("呆呆");
         admin.setCreateTime(new Date());
         System.out.println(adminDao.saveAdmin(admin));
+    }
+
+    @Test
+    public  void  testGetAdmin(){
+        System.out.println(adminDao.getAdmin(2));
+        System.out.println(adminDao.getAdmin(211));
     }
 
 }

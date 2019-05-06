@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,15 +50,13 @@ public class AdminService {
 
     /**
      *1、修改后的账户名不能与其他账户名重名
-     * @param username
-     * @param name
-     * @param id
-     * @return false表示修改失败 ，true表示修改成功
+     * @param admin
+     * @return true表示 ，false表示
      */
-    public boolean updateAdmin(String username,String name,Integer id){
+    public boolean updateAdmin(Admin admin){
         boolean status=false;
-        if (adminDao.existsAdmin(username,id)==0){    //如果不重名
-        if (adminDao.updateAdmin(username,name,id)==1){
+        if (adminDao.existsAdmin(admin.getUsername(),admin.getId())==0){    //如果不重名
+        if (adminDao.updateAdmin(admin)==1){
             status=true;
         }else {
             status=false;
@@ -67,20 +66,31 @@ public class AdminService {
     }
 
     /**
-     * 查找在数据中和指定用户名重名的个数
+     * 查找在数据中和指定用户名重名的个数  （用于账户编辑）
      * @param username
      * @param id
+     * @return true表示存在账户重名 ，false表示不存在
+     */
+    public boolean existsAdmin(String username,Integer id){
+        if (adminDao.existsAdmin(username,id)==0){
+            return  false;
+        }else {
+            return true;
+        }
+    }
+
+    /**
+     * 判断账户是否存在 （用于创建账户的时候）
+     * @param username
      * @return
      */
- public boolean existsAdmin(String username,Integer id){
-     if (adminDao.existsAdmin(username,id)==0){
-         return  false;
-     }else {
-         return true;
-     }
- }
-
-
+    public  boolean existsUsername(String username){
+    if (adminDao.existsUsername(username)==0){
+        return  false;
+    }else {
+        return true;
+    }
+}
     /**
      * 返回所有的管理账户集合
      * @return 以List的方式返回
@@ -115,11 +125,26 @@ public class AdminService {
      */
     public boolean saveAdmin(Admin admin){
         boolean status=false;
-            if (adminDao.saveAdmin(admin)==1){
+        admin.setPassword(SHA.getResult("123456"));   //默认密码
+        admin.setCreateTime(new Date());                        //系统当前时间为创建时间
+            if (adminDao.saveAdmin(admin)>0){
             status=true;
         }
         return  status;
     }
 
+
+    /**
+     * 根据标识符获取对应的管理账户对象
+     * @param id
+     * @return  null表示没有找到
+     */
+   public Admin getAdmin(Integer id){
+        Admin admin=null;
+        if (id!=null){
+            admin=adminDao.getAdmin(id);
+        }
+        return  admin;
+    }
 
 }

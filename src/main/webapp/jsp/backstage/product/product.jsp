@@ -32,15 +32,15 @@ $(document).ready(function(){
   $(".tip").fadeOut(100);
 });
 
-  $("a[name='deleteAdmin']").click(function () {
-      var  url=$(this).attr("href");
-      var  username=$(this).attr("id");
-      if (window.confirm("确认删除("+username+")账户吗？")){
-          return true;   //执行链接跳转
-      }else {
-          return false;  //不执行链接跳转
-      }
-  });
+  $("a[name='deleteProductType']").click(function () {
+        var  url=$(this).attr("href");
+        var  name=$(this).attr("id");
+        if (window.confirm("确认删除("+name+")产品分类吗？")){
+            return true;   //执行链接跳转
+        }else {
+            return false;  //不执行链接跳转
+        }
+    });
 });
 </script>
     <script >
@@ -59,7 +59,7 @@ $(document).ready(function(){
     <span>位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="#">管理员账户管理</a></li>
+    <li><a href="#">产品管理</a></li>
     </ul>
     </div>
     
@@ -68,8 +68,8 @@ $(document).ready(function(){
     <div class="tools">
     
     	<ul class="toolbar">
-        <a href="<%=basePath%>backstage/adminmanage/toAddAdmin">
-            <li class="click"><span><img src="<%=basePath%>jsp/backstage/images/t01.png" /></span>添加管理账户</li>
+        <a href="<%=basePath%>backstage/product/toAddProduct">
+            <li class="click"><span><img src="<%=basePath%>jsp/backstage/images/t01.png" /></span>添加产品</li>
         </a>
         </ul>
         
@@ -85,21 +85,31 @@ $(document).ready(function(){
     	<thead>
     	<tr>
         <th><input name="" type="checkbox" value="" checked="checked"/></th>
-        <th>账户名<i class="sort"></i></th>
-        <th>姓名</th>
-        <th>创建时间</th>
+        <th>产品图片<i class="sort"></i></th>
+        <th>产品名</th>
+        <th>产品分类</th>
+            <th>产品价格</th>
+            <th>发布人</th>
+            <th>是否上架</th>
+            <th>库存</th>
+            <th>点击数</th>
         <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach  var="admin" items="${requestScope.list}">
+        <c:forEach  var="product" items="${requestScope.list}">
         <tr>
         <td><input name="" type="checkbox" value="" /></td>
-        <td>${admin.username}</td>
-        <td>${admin.name}</td>
-        <td><fmt:formatDate value="${admin.createTime}" pattern="yyyy年MM月dd日 HH:mm"/> </td>
-        <td><a href="<%=basePath%>backstage/adminmanage/toUpdateAdmin?id=${admin.id}" class="tablelink">修改</a>
-            <a name ="deleteAdmin" id="${admin.username}" href="<%=basePath%>backstage/adminmanage/doDeleteAdmin?id=${admin.id}" class="tablelink"> 删除</a></td>
+        <td>${product.picUrl}</td>
+        <td>${product.name}</td>
+            <td>${product.productType}</td>
+        <td>${product.price}</td>
+            <td>${product.creator} </td>
+            <td>${product.onSale} </td>
+            <td>${product.number} </td>
+            <td>${product.click} </td>
+        <td><a href="<%=basePath%>backstage/product/toUpdateProduct?id=${product.id}" class="tablelink">修改</a>
+            <a name ="deleteProductType" id="${product.name}" href="<%=basePath%>backstage/product/doDeleteProduct?id=${product.id}" class="tablelink"> 删除</a></td>
         </tr>
         </c:forEach>
 

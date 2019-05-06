@@ -20,6 +20,9 @@
 	<select id="existsAdmin" resultType="int">
 		select count(id) from admin where username=#{username} and id!=#{id}
 	</select>
+	<select id="existsUsername" resultType="int">
+		select count(id) from admin where username=#{username}
+	</select>
 
 	<select id="getAdminList" resultType="com.lcvc.ebuy_maven_ssm.model.Admin">
         select * from admin order by id asc
@@ -32,4 +35,8 @@
 	<insert id="saveAdmin">
 		insert into admin( id,username,password,name,createTime) values(null,#{username},#{password},#{name},#{createTime})
 	</insert>
+
+	<select id="getAdmin" resultType="com.lcvc.ebuy_maven_ssm.model.Admin">
+		select * from admin where id=#{id}
+	</select>
 </mapper>
